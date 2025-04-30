@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escuela Primaria Cuauhtémoc App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 15px;
+      text-align: center;
+      background-color: black;
+      color: white;
+    }
+    .classroom-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 6px;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .card {
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #222;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.1rem;
+    }
+    ul li {
+      margin: 5px 0;
+      color: white;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: gold;
+      font-style: normal;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #cccccc;
+    }
+
+    @media (max-width: 600px) {
+      button {
+        width: 45%;
+        font-size: 1rem;
+      }
+      ul {
+        font-size: 1rem;
+      }
+    }
+
+    .button-6C {
+      background-color: black;
+      color: gold;
+    }
+    .button-6C:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Escuela Primaria Cuauhtémoc App</h1>
+  <div class="classroom-buttons" id="buttons"></div>
+  <div class="card" id="classroomDetails"></div>
+
+  <div class="footer">App creada por Gerardo Villa Ruiz</div>
+
+  <script>
+    const classroomList = [
+      "6.C", "6.A", "6.B", "5.C", "5.A", "5.B",
+      "4.C", "4.A", "4.B", "3.C", "3.A", "3.B",
+      "2.C", "2.A", "2.B", "1.C", "1.A", "1.B"
+    ];
+
+    const studentsByClassroom = {
+      "6.C": [
+        "Ashly", "Erick", "Jennifer", "Christian", "Matias", "Abel", "Luis Angel",
+        "Natalia", "Kenia", "Karim", "Hector", "Grecia", "Jeiden", "Alice",
+        "Alisson", "Nicole", "Andrea", "Gloria", "Abraham", "Gael", "Gerardo",
+        "Rodrigo", "Fatima", "Wendy", "Quetzaliv", "Ximena", "Valeria"
+      ]
+    };
+
+    const buttonsContainer = document.getElementById("buttons");
+    const detailsContainer = document.getElementById("classroomDetails");
+
+    classroomList.forEach((room) => {
+      const btn = document.createElement("button");
+      btn.textContent = room;
+      if (room === "6.C") {
+        btn.classList.add("button-6C");
+      }
+      btn.onclick = () => showStudents(room);
+      buttonsContainer.appendChild(btn);
+    });
+
+    function showStudents(classroom) {
+      const students = studentsByClassroom[classroom];
+      const title = classroom === "6.C" ? `Salón ${classroom} (ESPECIAL)` : `Salón ${classroom}`;
+      detailsContainer.innerHTML = `<h2>${title}</h2>`;
+      if (students) {
+        const list = students.map(s => `<li>${s}</li>`).join("");
+        detailsContainer.innerHTML += `<ul>${list}</ul>`;
+      } else {
+        detailsContainer.innerHTML += `<p style="font-size: 1.1rem; color: white;">Próximamente</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
